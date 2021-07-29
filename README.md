@@ -1,3 +1,3 @@
 # binary_search_trees
 
-#Oding project assignment of building a balanced binary search tree
+Odin project assignment of building a balanced binary search tree
