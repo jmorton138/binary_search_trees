@@ -17,4 +17,8 @@ class Tree
         node.right_child = build_tree(array, mid + 1, last)
         return node
     end
+
+
 end
+
+
