@@ -51,7 +51,7 @@ def delete(root, value)
         elsif root.left_child.right_child != nil && root.left_child.left_child == nil
              root.left_child = root.left_child.right_child
              return
-        #3rd case
+        #third case
         elsif root.left_child.left_child != nil && root.left_child.right_child != nil
             min_root = root.left_child.right_child
             min = find_min(min_root)
@@ -68,6 +68,7 @@ def delete(root, value)
         elsif root.right_child.right_child != nil && root.right_child.left_child == nil
             root.right_child = root.right_child.right_child
             return
+        #third case
         elsif root.right_child.left_child != nil && root.right_child.right_child != nil
             min_root = root.right_child.right_child
             min = find_min(min_root)
@@ -84,11 +85,9 @@ def delete(root, value)
     if value > root.data
         delete(root.right_child, value)
     end
-
 end
 
 def find_min(root)
-    
     if root.left_child == nil  
         return root
     else
@@ -102,7 +101,44 @@ def find(root, value)
     return find(root.right_child, value) if root.data < value
 end
 
+def level_order(root)
+    if root == nil
+        return
+    end
+    queue = []
+    array = []
+    #save node in Q
+    queue << root
+    while !queue.empty?() do
+        #print data from current node
+        current = queue.first()
+        #print current.data
+        array << current.data
+        #save left and right nodes into Q
+        if current.left_child != nil
+            queue.push(current.left_child)
+        end
+        if current.right_child != nil
+            queue.push(current.right_child)
+        end
+        #remove first element from array
+        queue.shift()
+    end
+    return array
+    #print node at front of Q and save it's children to Q
+end
 
+def inorder(node)
+    if node == nil
+        return
+    end
+    # left
+    inorder(node.left_child)
+    #root
+    print node.data
+    #right
+    inorder(node.right_child)
+end
 
 def pre_order(node)
     if node == nil
@@ -113,6 +149,21 @@ def pre_order(node)
     pre_order(node.left_child)
     pre_order(node.right_child)
 end
+
+def postorder(node)
+    if node == nil
+        return
+    end
+    #left
+    postorder(node.left_child)
+    #right
+    postorder(node.right_child)
+    #root
+    p node.data
+end
+
+
+
 
 def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -130,17 +181,7 @@ tree = Tree.new(array)
 #pre_order(tree.root)
 #insert(tree.root, 1.5)
 pretty_print(tree.root)
-delete(tree.root, 6)
-pretty_print(tree.root)
+#inorder(tree.root)
+#pre_order(tree.root)
+postorder(tree.root)
 
-
-# #2 child nodes
-# if root.left_child != nil && root.right_child != nil
-#     #find next biggest: min on right (or max on left)
-#     #keep going to the right until no left child, this is value to be replaced with deleted value
-#     delete(root.right_child, value)
-# elsif root.right_child != nil && root.left_child == nil
-#     #this is your min value on right
-#     min = root.right_child
-#     #replace
-# end
