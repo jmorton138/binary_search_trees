@@ -161,15 +161,17 @@ def postorder(node)
     p node.data
 end
 
-def height(node, counter = 0)
+def height(node, counter = 0, array = [])
     #returns the number of edges in longest path from a given node to a leaf node.
     if node == nil
         return counter - 1
     end
     counter += 1
-    height(node.left_child, counter)
-    height(node.right_child, counter)
-
+    #p "node #{node.data} counter: #{counter}"
+    array.push(counter)
+    height(node.left_child, counter, array)
+    height(node.right_child, counter, array)
+    return array.max - 1
 end
 
 def depth(root, node, counter = 0)
@@ -181,6 +183,22 @@ def depth(root, node, counter = 0)
     depth(root.right_child, node, counter)
     if root.data == node
         p counter - 1
+    end
+end
+
+def balanced?(root)
+    if root == nil
+        return
+    end
+    #compare height difference of each subtree
+    #if any height diff is greater than 1 return false
+    p left_height = height(root.left_child)
+    p right_height = height(root.right_child)
+    diff = left_height - right_height
+    if diff.abs > 1
+        return false
+    else
+        return true
     end
 end
 
@@ -198,9 +216,12 @@ array = [1, 2, 3, 4, 5, 6, 7]
 tree = Tree.new(array)
 #pretty_print(tree.root)
 #pre_order(tree.root)
-#insert(tree.root, 1.5)
+insert(tree.root, 1.5)
+insert(tree.root, 1.7)
 pretty_print(tree.root)
+height(tree.root)
 #inorder(tree.root)
 #pre_order(tree.root)
-depth(tree.root, 7)
+#depth(tree.root, 1.5)
+balanced?(tree.root)
 
