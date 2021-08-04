@@ -2,7 +2,6 @@ require './lib/node.rb'
 require './lib/tree.rb'
 
 
-
 def insert(root, value)
     return root.left_child = Node.new(value) if value < root.data && root.left_child == nil
     return root.right_child = Node.new(value) if value > root.data && root.right_child == nil
@@ -102,12 +101,9 @@ def inorder(node)
     if node == nil
         return
     end
-    # left
     inorder(node.left_child)
-    #root
     print node.data
     print ", "
-    #right
     inorder(node.right_child)
 end
 
@@ -125,11 +121,8 @@ def postorder(node)
     if node == nil
         return
     end
-    #left
     postorder(node.left_child)
-    #right
     postorder(node.right_child)
-    #root
     print node.data
     print ", "
 end
@@ -140,7 +133,6 @@ def height(node, counter = 0, array = [])
         return counter - 1
     end
     counter += 1
-    #p "node #{node.data} counter: #{counter}"
     array.push(counter)
     height(node.left_child, counter, array)
     height(node.right_child, counter, array)
@@ -189,21 +181,4 @@ end
 
 
 
-# array = [1, 2, 3, 4, 5, 6, 7]
-# #array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 22]
-
-# tree = Tree.new(array)
-# #pretty_print(tree.root)
-# #pre_order(tree.root)
-# insert(tree.root, 1.5)
-# insert(tree.root, 1.7)
-# pretty_print(tree.root)
-# height(tree.root)
-# #inorder(tree.root)
-# #pre_order(tree.root)
-# #depth(tree.root, 1.5)
-# p level_order(tree.root)
-# new_tree = rebalance(tree.root)
-# p new_tree.array
-# pretty_print(new_tree.root)
 
