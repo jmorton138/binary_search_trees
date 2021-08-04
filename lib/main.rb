@@ -167,13 +167,22 @@ def height(node, counter = 0)
         return counter - 1
     end
     counter += 1
-    #left
     height(node.left_child, counter)
-    #right
     height(node.right_child, counter)
 
 end
 
+def depth(root, node, counter = 0)
+    if root == nil
+        return
+    end
+    counter += 1
+    depth(root.left_child, node, counter)
+    depth(root.right_child, node, counter)
+    if root.data == node
+        p counter - 1
+    end
+end
 
 def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -193,5 +202,5 @@ tree = Tree.new(array)
 pretty_print(tree.root)
 #inorder(tree.root)
 #pre_order(tree.root)
-p height(tree.root)
+depth(tree.root, 7)
 
