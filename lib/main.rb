@@ -41,7 +41,6 @@ def insert(root, value)
 end
 
 def delete(root, value)
-
     if root.left_child.data == value
         #first case: deleting leaf in tree
         if root.left_child.left_child == nil && root.left_child.right_child == nil
@@ -162,7 +161,18 @@ def postorder(node)
     p node.data
 end
 
+def height(node, counter = 0)
+    #returns the number of edges in longest path from a given node to a leaf node.
+    if node == nil
+        return counter - 1
+    end
+    counter += 1
+    #left
+    height(node.left_child, counter)
+    #right
+    height(node.right_child, counter)
 
+end
 
 
 def pretty_print(node = @root, prefix = '', is_left = true)
@@ -174,7 +184,7 @@ end
 
 
 array = [1, 2, 3, 4, 5, 6, 7]
-#array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324]
+#array = [1, 7, 4, 23, 8, 9, 4, 3, 5, 7, 9, 67, 6345, 324, 22]
 
 tree = Tree.new(array)
 #pretty_print(tree.root)
@@ -183,5 +193,5 @@ tree = Tree.new(array)
 pretty_print(tree.root)
 #inorder(tree.root)
 #pre_order(tree.root)
-postorder(tree.root)
+p height(tree.root)
 
