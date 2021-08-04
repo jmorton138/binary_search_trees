@@ -2,7 +2,7 @@ class Tree
     attr_accessor :array, :root
     def initialize(array)
         @array = array.sort.uniq
-        @root = build_tree(array)
+        @root = build_tree(@array)
     end
 
     def build_tree(array, first = 0, last = array.length - 1)
