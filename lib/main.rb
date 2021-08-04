@@ -15,7 +15,7 @@ class Tree
     attr_accessor :array, :root
     def initialize(array)
         @array = array.sort.uniq
-        @root = build_tree(array)
+        @root = build_tree(@array)
     end
 
     def build_tree(array, first = 0, last = array.length - 1)
@@ -192,8 +192,8 @@ def balanced?(root)
     end
     #compare height difference of each subtree
     #if any height diff is greater than 1 return false
-    p left_height = height(root.left_child)
-    p right_height = height(root.right_child)
+    left_height = height(root.left_child)
+    right_height = height(root.right_child)
     diff = left_height - right_height
     if diff.abs > 1
         return false
@@ -201,6 +201,12 @@ def balanced?(root)
         return true
     end
 end
+
+def rebalance(root)
+    # create level order array then pass it into build_array method
+    tree = Tree.new(level_order(root))
+end
+
 
 def pretty_print(node = @root, prefix = '', is_left = true)
     pretty_print(node.right_child, "#{prefix}#{is_left ? '│   ' : '    '}", false) if node.right_child
@@ -223,5 +229,7 @@ height(tree.root)
 #inorder(tree.root)
 #pre_order(tree.root)
 #depth(tree.root, 1.5)
-balanced?(tree.root)
-
+p level_order(tree.root)
+new_tree = rebalance(tree.root)
+p new_tree.array
+pretty_print(new_tree.root)
